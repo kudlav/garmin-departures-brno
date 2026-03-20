@@ -51,13 +51,13 @@ This phase establishes the foundation of the Garmin Connect IQ project.
     * `resources/strings/`: For UI text (English). ✅
     * `resources/resources.xml`: To register JSON data as loadable resources. ✅
 
-#### Phase 3: Location & Proximity Engine
+#### Phase 3: Location & Proximity Engine ✅
 
-1. **GPS Integration:** Implement `Position.enableLocationEvents` with a callback that filters for quality.
-2. **Nearest Search:**
-    * Binary search for the index of `currentLat - 0.01`.
-    * Iterate through the array until `currentLat + 0.01`.
-    * Pick the 4 closest results based on `lat`/`lon` distance.
+1. **GPS Integration:** Load the position fast and only once after app start / reopened. Implement `Position.enableLocationEvents` with a callback that filters for quality. ✅
+2. **Nearest Search:** ✅
+    * Binary search for the index of `currentLat - 0.01`. ✅
+    * Iterate through the array until `currentLat + 0.01`. ✅
+    * Pick the 4 closest results based on `lat`/`lon` distance. ✅
 
 #### Phase 4: Networking & Dynamic Menus
 
