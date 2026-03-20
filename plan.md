@@ -38,7 +38,20 @@ To minimize the memory footprint on the watch (critical for 128KB-1MB heap limit
 1. ✅ **Python Pre-processor:** Use `stops.csv` and `routes.csv`. Convert these files into the optimized JSON formats. You can use inspire by prepare_data.py which is a draft version.
 2. ✅ **Asset Integration:** Place JSONs in the Garmin project's `resources/data/` folder. Place used scripts into `/scripts/` folder.
 
-#### Phase 2: Location & Proximity Engine
+### Updated Phase 2: Project Scaffold & Base Architecture
+
+This phase establishes the foundation of the Garmin Connect IQ project.
+
+1. **Garmin Project Configuration:**
+    * Create `manifest.xml`: Define App ID (UUID), specify permissions (`Communications`, `Positioning`), and target the `vivoactive5`.
+    * Create `monkey.jungle`: Configure source and resource paths.
+2. **Folder Structure Design:**
+    * `source/`: Contains logic and UI controllers.
+    * `resources/data/`: Optimized JSON data from the Phase 1.
+    * `resources/strings/`: For UI text (English).
+    * `resources/resources.xml`: To register JSON data as loadable resources.
+
+#### Phase 3: Location & Proximity Engine
 
 1. **GPS Integration:** Implement `Position.enableLocationEvents` with a callback that filters for quality.
 2. **Nearest Search:**
@@ -46,13 +59,13 @@ To minimize the memory footprint on the watch (critical for 128KB-1MB heap limit
     * Iterate through the array until `currentLat + 0.01`.
     * Pick the 4 closest results based on `lat`/`lon` distance.
 
-#### Phase 3: Networking & Dynamic Menus
+#### Phase 4: Networking & Dynamic Menus
 
 1. **Stop Menu:** Handle the transition from the splash screen to the stop list.
 2. **WebRequest:** Fetch real-time JSON data from the IDS JMK server.
 3. **Post Menu:** Dynamically build a menu from the returned `PostList` array.
 
-#### Phase 4: Custom UI (Departure Board)
+#### Phase 5: Custom UI (Departure Board)
 
 1. **Visual Elements:**
     * **Line Badge:** Rounded rectangle with `LineName` using colors from `line_colors.json`.
@@ -60,7 +73,7 @@ To minimize the memory footprint on the watch (critical for 128KB-1MB heap limit
     * **Time:** `TimeMark`.
 2. **Interaction:** Support touch-scrolling and a 60-second auto-refresh timer and swipe to go back.
 
-#### Phase 5: Error Handling & Optimization
+#### Phase 6: Error Handling & Optimization
 
 1. **Fail-safes:** Handle "No Phone Connection", "Timeout", and "No Service" scenarios gracefully.
 2. **AMOLED Polish:** Use pure black backgrounds and vibrant badge colors for maximum readability.
