@@ -33,23 +33,23 @@ To minimize the memory footprint on the watch (critical for 128KB-1MB heap limit
 
 ### Implementation Phases
 
-#### Phase 1: Resource Preparation
+#### Phase 1: Resource Preparation ✅
 
-1. ✅ **Python Pre-processor:** Use `stops.csv` and `routes.csv`. Convert these files into the optimized JSON formats. You can use inspire by prepare_data.py which is a draft version.
-2. ✅ **Asset Integration:** Place JSONs in the Garmin project's `resources/data/` folder. Place used scripts into `/scripts/` folder.
+1. **Python Pre-processor:** Use `stops.csv` and `routes.csv`. Convert these files into the optimized JSON formats. You can use inspire by prepare_data.py which is a draft version. ✅
+2. **Asset Integration:** Place JSONs in the Garmin project's `resources/data/` folder. Place used scripts into `/scripts/` folder. ✅
 
-### Updated Phase 2: Project Scaffold & Base Architecture
+### Phase 2: Project Scaffold & Base Architecture ✅
 
 This phase establishes the foundation of the Garmin Connect IQ project.
 
-1. **Garmin Project Configuration:**
-    * Create `manifest.xml`: Define App ID (UUID), specify permissions (`Communications`, `Positioning`), and target the `vivoactive5`.
-    * Create `monkey.jungle`: Configure source and resource paths.
-2. **Folder Structure Design:**
-    * `source/`: Contains logic and UI controllers.
-    * `resources/data/`: Optimized JSON data from the Phase 1.
-    * `resources/strings/`: For UI text (English).
-    * `resources/resources.xml`: To register JSON data as loadable resources.
+1. **Garmin Project Configuration:** ✅
+    * Create `manifest.xml`: Define App ID (UUID), specify permissions (`Communications`, `Positioning`), and target the `vivoactive5`. ✅
+    * Create `monkey.jungle`: Configure source and resource paths. ✅
+2. **Folder Structure Design:** ✅
+    * `source/`: Contains logic and UI controllers. ✅
+    * `resources/data/`: Optimized JSON data from the Phase 1. ✅
+    * `resources/strings/`: For UI text (English). ✅
+    * `resources/resources.xml`: To register JSON data as loadable resources. ✅
 
 #### Phase 3: Location & Proximity Engine
 
