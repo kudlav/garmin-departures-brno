@@ -1,0 +1,513 @@
+{
+  "StopID": 1146,
+  "Message": "VÝLUKA STRÁNSKÁ SKÁLA: Všechny spoje linky 10 jedou do smyčky Novolíšeňská. Náhradní dopravu pro areál Zetoru zajišťuje autobusová linka x10.",
+  "PostList": [
+    {
+      "PostID": 1,
+      "Name": "1.kolej (nást. 1)",
+      "Departures": [
+        {
+          "LineId": 2,
+          "LineName": "2",
+          "RouteId": 1267,
+          "FinalStop": "Ústř. hřbitov\u00A0-\u00A0smyčka",
+          "IsLowFloor": true,
+          "Platform": "1",
+          "TimeMark": "5min"
+        },
+        {
+          "LineId": 7,
+          "LineName": "7",
+          "RouteId": 1161,
+          "FinalStop": "Starý Lískovec",
+          "IsLowFloor": true,
+          "Platform": "1",
+          "TimeMark": "5min"
+        },
+        {
+          "LineId": 9,
+          "LineName": "9",
+          "RouteId": 1284,
+          "FinalStop": "Čertova rokle",
+          "IsLowFloor": true,
+          "Platform": "1",
+          "TimeMark": "5min"
+        },
+        {
+          "LineId": 1,
+          "LineName": "1",
+          "RouteId": 1319,
+          "FinalStop": "Bystrc, Rakovecká",
+          "IsLowFloor": true,
+          "Platform": "1",
+          "TimeMark": "9min"
+        },
+        {
+          "LineId": 4,
+          "LineName": "4",
+          "RouteId": 1265,
+          "FinalStop": "Náměstí Míru",
+          "IsLowFloor": true,
+          "Platform": "1",
+          "TimeMark": "11min"
+        }
+      ]
+    },
+    {
+      "PostID": 2,
+      "Name": "2.kolej (nást. 2)",
+      "Departures": [
+        {
+          "LineId": 1,
+          "LineName": "1",
+          "RouteId": 1290,
+          "FinalStop": "Řečkovice",
+          "IsLowFloor": true,
+          "Platform": "2",
+          "TimeMark": "5min"
+        },
+        {
+          "LineId": 9,
+          "LineName": "9",
+          "RouteId": 1281,
+          "FinalStop": "Juliánov",
+          "IsLowFloor": true,
+          "Platform": "2",
+          "TimeMark": "9min"
+        },
+        {
+          "LineId": 2,
+          "LineName": "2",
+          "RouteId": 1264,
+          "FinalStop": "Stará osada",
+          "IsLowFloor": true,
+          "Platform": "2",
+          "TimeMark": "10min"
+        },
+        {
+          "LineId": 1,
+          "LineName": "1",
+          "RouteId": 1294,
+          "FinalStop": "Řečkovice",
+          "IsLowFloor": true,
+          "Platform": "2",
+          "TimeMark": "15min"
+        },
+        {
+          "LineId": 4,
+          "LineName": "4",
+          "RouteId": 1254,
+          "FinalStop": "Obřany, Babická",
+          "IsLowFloor": true,
+          "Platform": "2",
+          "TimeMark": "15min"
+        }
+      ]
+    },
+    {
+      "PostID": 3,
+      "Name": "3.kolej (nást. 3)",
+      "Departures": [
+        {
+          "LineId": 8,
+          "LineName": "8",
+          "RouteId": 1295,
+          "FinalStop": "Nemocnice Bohunice",
+          "IsLowFloor": true,
+          "Platform": "3",
+          "TimeMark": "**"
+        },
+        {
+          "LineId": 8,
+          "LineName": "8",
+          "RouteId": 1297,
+          "FinalStop": "Nemocnice Bohunice",
+          "IsLowFloor": true,
+          "Platform": "3",
+          "TimeMark": "12min"
+        },
+        {
+          "LineId": 12,
+          "LineName": "12",
+          "RouteId": 1306,
+          "FinalStop": "Technologický park",
+          "IsLowFloor": true,
+          "Platform": "3",
+          "TimeMark": "15min"
+        },
+        {
+          "LineId": 8,
+          "LineName": "8",
+          "RouteId": 1299,
+          "FinalStop": "Nemocnice Bohunice",
+          "IsLowFloor": true,
+          "Platform": "3",
+          "TimeMark": "23min"
+        },
+        {
+          "LineId": 12,
+          "LineName": "12",
+          "RouteId": 1308,
+          "FinalStop": "Technologický park",
+          "IsLowFloor": true,
+          "Platform": "3",
+          "TimeMark": "29min"
+        }
+      ]
+    },
+    {
+      "PostID": 4,
+      "Name": "4.kolej (nást. 4)",
+      "Departures": [
+        {
+          "LineId": 12,
+          "LineName": "12",
+          "RouteId": 1295,
+          "FinalStop": "Komárov",
+          "IsLowFloor": true,
+          "Platform": "4",
+          "TimeMark": "8min"
+        },
+        {
+          "LineId": 8,
+          "LineName": "8",
+          "RouteId": 1284,
+          "FinalStop": "Líšeň, Mifkova",
+          "IsLowFloor": true,
+          "Platform": "4",
+          "TimeMark": "15min"
+        },
+        {
+          "LineId": 12,
+          "LineName": "12",
+          "RouteId": 1297,
+          "FinalStop": "Komárov",
+          "IsLowFloor": true,
+          "Platform": "4",
+          "TimeMark": "23min"
+        },
+        {
+          "LineId": 8,
+          "LineName": "8",
+          "RouteId": 1286,
+          "FinalStop": "Líšeň, Mifkova",
+          "IsLowFloor": true,
+          "Platform": "4",
+          "TimeMark": "29min"
+        },
+        {
+          "LineId": 12,
+          "LineName": "12",
+          "RouteId": 1299,
+          "FinalStop": "Komárov",
+          "IsLowFloor": true,
+          "Platform": "4",
+          "TimeMark": "21:00"
+        }
+      ]
+    },
+    {
+      "PostID": 5,
+      "Name": "ED Grand>viadukt (nást. 5)",
+      "Departures": [
+        {
+          "LineId": 10,
+          "LineName": "10",
+          "RouteId": 1124,
+          "FinalStop": "Novolíšeňská",
+          "IsLowFloor": true,
+          "Platform": "5",
+          "TimeMark": "11min"
+        },
+        {
+          "LineId": 67,
+          "LineName": "67",
+          "RouteId": 1121,
+          "FinalStop": "Avion Shopping Park",
+          "IsLowFloor": true,
+          "Platform": "5",
+          "TimeMark": "12min"
+        },
+        {
+          "LineId": 67,
+          "LineName": "67",
+          "RouteId": 1123,
+          "FinalStop": "Avion Shopping Park",
+          "IsLowFloor": true,
+          "Platform": "5",
+          "TimeMark": "21:02"
+        }
+      ]
+    },
+    {
+      "PostID": 6,
+      "Name": "ED Grand>Malin.n (nást. 6)",
+      "Departures": [
+        {
+          "LineId": 67,
+          "LineName": "67",
+          "RouteId": 1120,
+          "FinalStop": "Jundrov",
+          "IsLowFloor": true,
+          "Platform": "6",
+          "TimeMark": "16min"
+        },
+        {
+          "LineId": 8,
+          "LineName": "8",
+          "RouteId": 1507,
+          "FinalStop": "Vozovna Medlánky",
+          "IsLowFloor": true,
+          "Platform": "6",
+          "TimeMark": "29min"
+        },
+        {
+          "LineId": 67,
+          "LineName": "67",
+          "RouteId": 1122,
+          "FinalStop": "Jundrov",
+          "IsLowFloor": true,
+          "Platform": "6",
+          "TimeMark": "20:58"
+        }
+      ]
+    },
+    {
+      "PostID": 8,
+      "Name": "bus smyč.odj. (nást. 9)",
+      "Departures": [
+        {
+          "LineId": 33,
+          "LineName": "33",
+          "RouteId": 1196,
+          "FinalStop": "Slatina, sídliště",
+          "IsLowFloor": true,
+          "Platform": "9",
+          "TimeMark": "2min"
+        },
+        {
+          "LineId": 31,
+          "LineName": "31",
+          "RouteId": 1214,
+          "FinalStop": "Šlapanice, Kalvodova",
+          "IsLowFloor": true,
+          "Platform": "9",
+          "TimeMark": "12min"
+        },
+        {
+          "LineId": 33,
+          "LineName": "33",
+          "RouteId": 1198,
+          "FinalStop": "Slatina, sídliště",
+          "IsLowFloor": true,
+          "Platform": "9",
+          "TimeMark": "22min"
+        },
+        {
+          "LineId": 31,
+          "LineName": "31",
+          "RouteId": 1216,
+          "FinalStop": "Šlapanice, Kalvodova",
+          "IsLowFloor": true,
+          "Platform": "9",
+          "TimeMark": "20:54"
+        },
+        {
+          "LineId": 33,
+          "LineName": "33",
+          "RouteId": 1200,
+          "FinalStop": "Slatina, sídliště",
+          "IsLowFloor": true,
+          "Platform": "9",
+          "TimeMark": "21:04"
+        }
+      ]
+    },
+    {
+      "PostID": 22,
+      "Name": "AD odj.Benešova (silnice) (nást. 12)",
+      "Departures": [
+        {
+          "LineId": 49,
+          "LineName": "49",
+          "RouteId": 1162,
+          "FinalStop": "Modřice, Olympia",
+          "IsLowFloor": false,
+          "Platform": "12",
+          "TimeMark": "2min"
+        },
+        {
+          "LineId": 49,
+          "LineName": "49",
+          "RouteId": 1164,
+          "FinalStop": "Modřice, Olympia",
+          "IsLowFloor": true,
+          "Platform": "12",
+          "TimeMark": "22min"
+        },
+        {
+          "LineId": 49,
+          "LineName": "49",
+          "RouteId": 402,
+          "FinalStop": "Modřice, Olympia",
+          "IsLowFloor": false,
+          "Platform": "12",
+          "TimeMark": "± 21:14"
+        }
+      ]
+    },
+    {
+      "PostID": 24,
+      "Name": "odj.Benešova Bnád",
+      "Departures": [
+        {
+          "LineId": 76,
+          "LineName": "E76",
+          "RouteId": 1062,
+          "FinalStop": "Letiště Tuřany",
+          "IsLowFloor": false,
+          "Platform": "",
+          "TimeMark": "8min"
+        },
+        {
+          "LineId": 76,
+          "LineName": "E76",
+          "RouteId": 1064,
+          "FinalStop": "Letiště Tuřany",
+          "IsLowFloor": true,
+          "Platform": "",
+          "TimeMark": "21:00"
+        }
+      ]
+    },
+    {
+      "PostID": 97,
+      "Name": "vlak 5./6. nástupiště odjezd",
+      "Departures": [
+        {
+          "LineId": 140,
+          "LineName": "S4",
+          "RouteId": 4830,
+          "FinalStop": "Zastávka u Brna",
+          "IsLowFloor": false,
+          "Platform": "-",
+          "TimeMark": "± 24min"
+        },
+        {
+          "LineId": 141,
+          "LineName": "S41",
+          "RouteId": 4454,
+          "FinalStop": "Bohutice",
+          "IsLowFloor": false,
+          "Platform": "-",
+          "TimeMark": "± 20:55"
+        }
+      ]
+    },
+    {
+      "PostID": 98,
+      "Name": "vlak lichý",
+      "Departures": [
+        {
+          "LineId": 135,
+          "LineName": "R13",
+          "RouteId": 831,
+          "FinalStop": "Hodonín",
+          "IsLowFloor": false,
+          "Platform": "-",
+          "TimeMark": "± 14min"
+        },
+        {
+          "LineId": 130,
+          "LineName": "S3",
+          "RouteId": 4955,
+          "FinalStop": "Židlochovice",
+          "IsLowFloor": false,
+          "Platform": "-",
+          "TimeMark": "± 18min"
+        },
+        {
+          "LineId": 147,
+          "LineName": "R8",
+          "RouteId": 1133,
+          "FinalStop": "Nezamyslice ( - cíl vlaku: Bohumín)",
+          "IsLowFloor": false,
+          "Platform": "-",
+          "TimeMark": "21:03"
+        },
+        {
+          "LineId": 120,
+          "LineName": "S2",
+          "RouteId": 4755,
+          "FinalStop": "Vyškov",
+          "IsLowFloor": true,
+          "Platform": "-",
+          "TimeMark": "21:06"
+        },
+        {
+          "LineId": 130,
+          "LineName": "S3",
+          "RouteId": 4661,
+          "FinalStop": "Hustopeče u Brna",
+          "IsLowFloor": true,
+          "Platform": "-",
+          "TimeMark": "21:09"
+        }
+      ]
+    },
+    {
+      "PostID": 99,
+      "Name": "vlak sudý",
+      "Departures": [
+        {
+          "LineId": 130,
+          "LineName": "S3",
+          "RouteId": 4954,
+          "FinalStop": "Tišnov",
+          "IsLowFloor": true,
+          "Platform": "2",
+          "TimeMark": "1min"
+        },
+        {
+          "LineId": 120,
+          "LineName": "S2",
+          "RouteId": 4752,
+          "FinalStop": "Skalice n.Svitavou",
+          "IsLowFloor": true,
+          "Platform": "-",
+          "TimeMark": "8min"
+        },
+        {
+          "LineId": 130,
+          "LineName": "S3",
+          "RouteId": 4660,
+          "FinalStop": "Tišnov",
+          "IsLowFloor": true,
+          "Platform": "-",
+          "TimeMark": "20:53"
+        },
+        {
+          "LineId": 120,
+          "LineName": "S2",
+          "RouteId": 4754,
+          "FinalStop": "Letovice",
+          "IsLowFloor": false,
+          "Platform": "-",
+          "TimeMark": "± 21:00"
+        },
+        {
+          "LineId": 125,
+          "LineName": "R19",
+          "RouteId": 52,
+          "FinalStop": "Letovice",
+          "IsLowFloor": false,
+          "Platform": "-",
+          "TimeMark": "± 21:17"
+        }
+      ]
+    }
+  ],
+  "FromCache": false,
+  "Warning": "Downloading data using automated tools is forbidden, for API access contact Kordis JMK. Automatizované stahování dat není povolené, pro přístup k API kontaktujte Kordis JMK.",
+  "Error": ""
+}
