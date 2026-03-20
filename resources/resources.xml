@@ -1,0 +1,4 @@
+<resources>
+    <jsonData id="stops_data" filename="data/stops_data.json" />
+    <jsonData id="line_colors" filename="data/line_colors.json" />
+</resources>

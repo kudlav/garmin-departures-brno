@@ -1,0 +1,13 @@
+<iq:manifest xmlns:iq="http://www.garmin.com/connectiq/sdk/manifest">
+    <iq:application entry="DeparturesApp" id="d13aa598-0d9e-4337-af54-6534b75cfe13" name="@Strings.AppName" type="watch-app" minApiLevel="3.2.0">
+        <iq:products>
+            <iq:product id="vivoactive5"/>
+        </iq:products>
+        <iq:permissions>
+            <iq:permission id="Communications"/>
+            <iq:permission id="Positioning"/>
+        </iq:permissions>
+        <iq:languages/>
+        <iq:barrels/>
+    </iq:application>
+</iq:manifest>
