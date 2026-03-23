@@ -59,11 +59,11 @@ This phase establishes the foundation of the Garmin Connect IQ project.
     * Iterate through the array until `currentLat + 0.01`. ✅
     * Pick the 4 closest results based on `lat`/`lon` distance. ✅
 
-#### Phase 4: Networking & Dynamic Menus
+#### Phase 4: Networking & Dynamic Menus ✅
 
-1. **Stop Menu:** Handle the transition from the splash screen to the stop list.
-2. **WebRequest:** Fetch real-time JSON data from the IDS JMK server.
-3. **Post Menu:** Dynamically build a menu from the returned `PostList` array.
+1. **Stop Menu:** Handle the transition from the splash screen to the stop list. ✅
+2. **WebRequest:** Fetch real-time JSON data from the IDS JMK server. ✅
+3. **Post Menu:** Dynamically build a menu from the returned `PostList` array. ✅
 
 #### Phase 5: Custom UI (Departure Board)
 

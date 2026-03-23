@@ -22,7 +22,7 @@ def process_stops():
     stops.sort(key=lambda x: x[2])
 
     with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(stops, f, ensure_ascii=False, separators=(',', ':'))
+        json.dump(stops, f, separators=(',', ':'))
 
     print(f"Processed {len(stops)} stops. File size: {len(json.dumps(stops))/1024:.2f} KB")
 

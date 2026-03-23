@@ -5,7 +5,7 @@ import Toybox.Position;
 import Toybox.Math;
 import Toybox.System;
 
-class DeparturesApp extends Application.AppBase {
+class App extends Application.AppBase {
 
     private var _view as DeparturesView?;
 
@@ -124,7 +124,12 @@ class DeparturesApp extends Application.AppBase {
             return;
         }
 
-        // TODO: Transition to Stop Menu (Phase 4)
+        var menu = new WatchUi.Menu2({:title=>"Select Stop"});
+        for (var i = 0; i < bestStops.size(); i++) {
+            menu.addItem(new WatchUi.MenuItem(bestStops[i]["name"], null, bestStops[i]["id"], null));
+        }
+        
+        WatchUi.pushView(menu, new StopMenuDelegate(), WatchUi.SLIDE_UP);
     }
 
     // Return the initial view of your application here
@@ -135,6 +140,6 @@ class DeparturesApp extends Application.AppBase {
 
 }
 
-function getApp() as DeparturesApp {
-    return Application.getApp() as DeparturesApp;
+function getApp() as App {
+    return Application.getApp() as App;
 }
