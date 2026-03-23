@@ -29,7 +29,7 @@ To minimize the memory footprint on the watch (critical for 128KB-1MB heap limit
     * Show a `WatchUi.Menu2` with the **names** of the 4 nearest stops.
 3. **API Fetch:** Call `https://mapa.idsjmk.cz/api/departures?stopid=${selected_id}`.
 4. **Platform (Post) Selection:** Show a `WatchUi.Menu2` with the list of `Name` values from the API's `PostList`.
-5. **Live Board:** A custom view rendering the departures for the chosen platform.
+5. **Live Board:** A custom view rendering the departures. All platforms will be displayed on this screen. Departures will be grouped by platform, but the view will initially opens scrolled to selected platform.
 
 ### Implementation Phases
 

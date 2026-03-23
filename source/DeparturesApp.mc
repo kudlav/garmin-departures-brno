@@ -24,7 +24,11 @@ class DeparturesApp extends Application.AppBase {
     }
 
     function onPosition(info as Position.Info) as Void {
-        if (info.accuracy >= Position.QUALITY_USABLE && info.position != null) {
+        if (DEBUG) { System.println("Position accuracy: " + info.accuracy); }
+        
+        var minAccuracy = DEBUG ? Position.QUALITY_LAST_KNOWN : Position.QUALITY_USABLE;
+        
+        if (info.accuracy >= minAccuracy && info.position != null) {
             Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
             var latDeg = info.position.toDegrees()[0] as Double;
             var lonDeg = info.position.toDegrees()[1] as Double;
@@ -57,7 +61,11 @@ class DeparturesApp extends Application.AppBase {
         }
 
         var cosLat = Math.cos(lat * 3.14159265358979 / 180.0);
-        var nearbyStops = [] as Array<Dictionary>;
+        
+        // Optimized Top-4 search
+        var bestStops = [] as Array<Dictionary>;
+        var bestDistSq = [1.0, 1.0, 1.0, 1.0] as Array<Float>; // Initial large distances
+
         for (var i = startIndex; i < count; i++) {
             var stop = stops[i];
             var stopLat = stop[2].toDouble();
@@ -68,33 +76,54 @@ class DeparturesApp extends Application.AppBase {
             var stopLon = stop[3].toDouble();
             var dLat = lat - stopLat;
             var dLon = (lon - stopLon) * cosLat;
-            var distSq = dLat * dLat + dLon * dLon;
+            var distSq = (dLat * dLat + dLon * dLon).toFloat();
 
-            nearbyStops.add({
-                "id" => stop[0],
-                "name" => stop[1],
-                "distSq" => distSq
-            });
-        }
-
-        // Sort by distance and pick top 4
-        for (var i = 0; i < nearbyStops.size(); i++) {
-            for (var j = i + 1; j < nearbyStops.size(); j++) {
-                if (nearbyStops[j]["distSq"] < nearbyStops[i]["distSq"]) {
-                    var temp = nearbyStops[i];
-                    nearbyStops[i] = nearbyStops[j];
-                    nearbyStops[j] = temp;
+            // Insert into top 4 if closer
+            if (distSq < bestDistSq[3]) {
+                var newStop = {
+                    "id" => stop[0],
+                    "name" => stop[1]
+                };
+                
+                // Find insertion point
+                for (var j = 0; j < 4; j++) {
+                    if (distSq < bestDistSq[j]) {
+                        // Shift others down
+                        for (var k = 3; k > j; k--) {
+                            bestDistSq[k] = bestDistSq[k-1];
+                        }
+                        
+                        if (bestStops.size() < 4) {
+                            bestStops.add(newStop);
+                        }
+                        for (var k = bestStops.size() - 1; k > j; k--) {
+                            bestStops[k] = bestStops[k-1];
+                        }
+                        
+                        bestDistSq[j] = distSq;
+                        bestStops[j] = newStop;
+                        break;
+                    }
                 }
             }
         }
 
-        var results = [] as Array<Dictionary>;
-        var limit = nearbyStops.size() > 4 ? 4 : nearbyStops.size();
-        for (var i = 0; i < limit; i++) {
-            results.add(nearbyStops[i]);
+        // Free memory as early as possible
+        stops = null;
+
+        if (DEBUG) {
+            System.println("Found stops: " + bestStops.size());
+            for (var i = 0; i < bestStops.size(); i++) {
+                System.println(" - " + bestStops[i]["name"]);
+            }
         }
 
-        System.println("Found stops: " + results);
+        if (bestStops.size() == 0) {
+            // TODO Remove Locating... and replace it with this string
+            WatchUi.showToast("No stops nearby", null);
+            return;
+        }
+
         // TODO: Transition to Stop Menu (Phase 4)
     }
 

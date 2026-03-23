@@ -31,7 +31,7 @@ class DeparturesView extends WatchUi.View {
         dc.drawText(
             dc.getWidth() / 2,
             dc.getHeight() / 2,
-            Graphics.FONT_MEDIUM,
+            Graphics.FONT_SMALL,
             "Locating...",
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
         );
