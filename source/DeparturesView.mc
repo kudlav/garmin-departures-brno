@@ -150,7 +150,7 @@ class DeparturesView extends WatchUi.View {
             } else {
                 var line = item.get("line") as String;
                 var dest = item.get("dest") as String;
-                var time = item.get("time") as String;
+                var time = " " + item.get("time") as String;
 
                 var colors = getColors(line);
                 var bgColor = colors[0];
@@ -165,15 +165,10 @@ class DeparturesView extends WatchUi.View {
 
                 // Draw destination
                 dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-                var font = Graphics.FONT_TINY;
-                // Truncate if too long
-                if (dest.length() > 20) {
-                    dest = dest.substring(0, 17) + "...";
-                }
-                dc.drawText(75, y + 5 + 15, font, dest, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+                dc.drawText(75, y + 5 + 15, Graphics.FONT_TINY, dest, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
 
                 // Draw time
-                dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
+                dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_BLACK);
                 dc.drawText(screenWidth - 10, y + 5 + 15, Graphics.FONT_TINY, time, Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
             }
         }
