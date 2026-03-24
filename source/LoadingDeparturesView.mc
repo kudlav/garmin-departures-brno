@@ -2,7 +2,7 @@ import Toybox.WatchUi;
 import Toybox.Graphics;
 import Toybox.Lang;
 
-class StopMenuLoadingView extends WatchUi.View {
+class LoadingDeparturesView extends WatchUi.View {
     private var _stopName as String;
 
     function initialize(stopName as String) {

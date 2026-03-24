@@ -12,12 +12,9 @@ class PostMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     function onSelect(item as WatchUi.MenuItem) as Void {
         var selectedPost = item.getId() as Dictionary;
-        
-        // Phase 5: Show Live Board
-        // For now, just show a placeholder
-        System.println("Selected platform: " + selectedPost.get("Name"));
-        
-        // TODO: Pass apiData and selectedPost to the Live Board View
+
+        var view = new DeparturesView(_apiData, selectedPost);
+        WatchUi.pushView(view, new DeparturesDelegate(view), WatchUi.SLIDE_LEFT);
     }
 
     function onBack() as Void {

@@ -7,7 +7,7 @@ import Toybox.System;
 
 class App extends Application.AppBase {
 
-    private var _view as DeparturesView?;
+    private var _view as LocatingView?;
 
     function initialize() {
         AppBase.initialize();
@@ -134,8 +134,8 @@ class App extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] {
-        _view = new DeparturesView();
-        return [ _view as WatchUi.Views, new DeparturesDelegate() ];
+        _view = new LocatingView();
+        return [ _view as WatchUi.Views, new LocatingDelegate() ];
     }
 
 }

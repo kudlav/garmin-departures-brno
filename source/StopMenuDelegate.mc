@@ -13,7 +13,7 @@ class StopMenuDelegate extends WatchUi.Menu2InputDelegate {
         var stopId = item.getId() as Number;
 
         // Push loading view so we can still go back
-        WatchUi.pushView(new StopMenuLoadingView(item.getLabel()), new BehaviorDelegate(), WatchUi.SLIDE_IMMEDIATE);
+        WatchUi.pushView(new LoadingDeparturesView(item.getLabel()), new BehaviorDelegate(), WatchUi.SLIDE_IMMEDIATE);
 
         // Fetch departures
         var params = {
