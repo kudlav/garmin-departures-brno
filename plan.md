@@ -72,6 +72,7 @@ This phase establishes the foundation of the Garmin Connect IQ project.
     * **Destination:** Truncated text for the `FinalStop`. ✅
     * **Time:** `TimeMark`. ✅
 2. **Interaction:** Support touch-scrolling and a 60-second auto-refresh timer and swipe to go back. ✅
+3. **Tactile Feedback:** Vibrate shortly after "Locating..." is done and stops are ready. ✅
 
 #### Phase 6: Error Handling & Optimization
 

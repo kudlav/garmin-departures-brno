@@ -4,6 +4,7 @@ import Toybox.WatchUi;
 import Toybox.Position;
 import Toybox.Math;
 import Toybox.System;
+import Toybox.Attention;
 
 class App extends Application.AppBase {
 
@@ -122,6 +123,10 @@ class App extends Application.AppBase {
             // TODO Remove Locating... and replace it with this string
             WatchUi.showToast("No stops nearby", null);
             return;
+        }
+
+        if (Attention has :vibrate) {
+            Attention.vibrate([new Attention.VibeProfile(100, 100)]);
         }
 
         var menu = new WatchUi.Menu2({:title=>"Select Stop"});
