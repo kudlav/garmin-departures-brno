@@ -152,9 +152,16 @@ class DeparturesView extends WatchUi.View {
                 var dest = item.get("dest") as String;
                 var time = " " + item.get("time") as String;
 
-                var colors = getColors(line);
-                var bgColor = colors[0];
-                var textColor = colors[1];
+                // Get colors
+                var bgColor = 0x008033;
+                var textColor = 0xFFFFFF;
+                if (_lineColors != null && _lineColors.hasKey(line)) {
+                    var entry = _lineColors.get(line) as Array;
+                    bgColor = entry[0] as Number;
+                    if (entry.size() > 1) {
+                        textColor = entry[1] as Number;
+                    }
+                }
 
                 // Draw line badge
                 dc.setColor(bgColor, Graphics.COLOR_TRANSPARENT);
@@ -172,42 +179,5 @@ class DeparturesView extends WatchUi.View {
                 dc.drawText(screenWidth - 10, y + 5 + 15, Graphics.FONT_TINY, time, Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
             }
         }
-    }
-
-    function getColors(line as String) as Array<Number> {
-        var bg = 0x008033;
-        var text = 0xFFFFFF;
-
-        if (_lineColors != null && _lineColors.hasKey(line)) {
-            var entry = _lineColors.get(line) as Array;
-            bg = StringUtil.parseHex(entry[0] as String);
-            if (entry.size() > 1) {
-                text = StringUtil.parseHex(entry[1] as String);
-            }
-        }
-
-        return [bg, text];
-    }
-}
-
-// TODO THIS SHOULD BE DONE BETTER
-// Utility class for hex parsing since Monkey C doesn't have it built-in easily for strings
-class StringUtil {
-    static function parseHex(hex as String) as Number {
-        if (hex.substring(0, 1).equals("#")) {
-            hex = hex.substring(1, hex.length());
-        }
-        var res = 0;
-        var digits = "0123456789ABCDEF";
-        hex = hex.toUpper();
-        for (var i = 0; i < hex.length(); i++) {
-            var char = hex.substring(i, i + 1);
-            var digit = digits.find(char);
-            if (digit == null) {
-                return 0;
-            }
-            res = (res << 4) + digit;
-        }
-        return res;
     }
 }

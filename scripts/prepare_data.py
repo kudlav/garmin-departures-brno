@@ -40,9 +40,9 @@ def process_routes():
             if color == "008033" and text_color == "FFFFFF":
                 continue
             if text_color == "FFFFFF":
-                routes[name] = [color]
+                routes[name] = [int(color, 16)]
             else:
-                routes[name] = [color, text_color]
+                routes[name] = [int(color, 16), int(text_color, 16)]
 
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(routes, f, ensure_ascii=False, separators=(',', ':'))
