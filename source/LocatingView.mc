@@ -1,5 +1,6 @@
 import Toybox.Graphics;
 import Toybox.WatchUi;
+import Toybox.Position;
 
 class LocatingView extends WatchUi.View {
 
@@ -7,15 +8,11 @@ class LocatingView extends WatchUi.View {
         View.initialize();
     }
 
-    // Load your resources here
-    function onLayout(dc as Graphics.Dc) as Void {
-        // No layout for now
-    }
-
     // Called when this View is brought to the foreground. Restore
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() as Void {
+        Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, getApp().method(:onPosition));
     }
 
     // Update the view
@@ -35,12 +32,6 @@ class LocatingView extends WatchUi.View {
             "Locating...",
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
         );
-    }
-
-    // Called when this View is removed from the screen. Save the
-    // state of this View here. This includes freeing resources from
-    // memory.
-    function onHide() as Void {
     }
 
 }
