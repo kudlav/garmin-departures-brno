@@ -1,14 +1,16 @@
-The plan for the **IDS JMK Departures** app for Garmin Vivoactive 5.
+# Development Plan
 
-### Project Overview
+The plan for the **Departures Brno** app for Garmin Vívoactive 5.
+
+## Project Overview
 
 * **Platform:** Garmin Connect IQ (Monkey C).
-* **Target Device:** Garmin Vivoactive 5 (AMOLED, 390x390px, Touch screen).
+* **Target Device:** Garmin Vívoactive 5 (AMOLED, 390x390px, Touch screen).
 * **Language:** English.
 * **Core Function:** Find nearest 4 stops, select platform (Post), and show live departures.
 * **Data Sources:** Local `stops_data.json`, Local `line_colors.json`, Remote IDS JMK API.
 
-### Optimized Data Strategy
+## Optimized Data Strategy
 
 The `stops.csv` contains ~3,200 entries, which is too large to parse at runtime on a watch with limited memory.
 To minimize the memory footprint on the watch (critical for 128KB-1MB heap limits), use the most compact representation possible.
@@ -17,10 +19,10 @@ To minimize the memory footprint on the watch (critical for 128KB-1MB heap limit
   * **Format:** `[[id, "Name", lat, lon], ...]`
   * **Example:** `[1146, "Hlavní nádraží", 49.1916, 16.6128]`
 * **`line_colors.json`**: A lookup table for route branding.
-  * **Format:** `{"1": ["FF0000", "FAFAFA"], "12": ["0000FF"]}`
+  * **Format:** `{"1": [16711680, 16448250], "12": [255]}`
   * **Fallback:** If a line is missing, use background `#008033` and text `#FFFFFF`. Use the text `#FFFFFF` when is the second item omitted.
 
-### Application Flow
+## Application Flow
 
 1. **Splash Screen:** Display "Locating..." and wait for high-accuracy GPS coordinates.
 2. **Stop Selection:**
@@ -31,14 +33,14 @@ To minimize the memory footprint on the watch (critical for 128KB-1MB heap limit
 4. **Platform (Post) Selection:** Show a `WatchUi.Menu2` with the list of `Name` values from the API's `PostList`.
 5. **Live Board:** A custom view rendering the departures. All platforms will be displayed on this screen. Departures will be grouped by platform, but the view will initially opens scrolled to selected platform.
 
-### Implementation Phases
+## Implementation Phases
 
-#### Phase 1: Resource Preparation ✅
+### Phase 1: Resource Preparation ✅
 
 1. **Python Pre-processor:** Use `stops.csv` and `routes.csv`. Convert these files into the optimized JSON formats. You can use inspire by prepare_data.py which is a draft version. ✅
 2. **Asset Integration:** Place JSONs in the Garmin project's `resources/data/` folder. Place used scripts into `/scripts/` folder. ✅
 
-### Phase 2: Project Scaffold & Base Architecture ✅
+## Phase 2: Project Scaffold & Base Architecture ✅
 
 This phase establishes the foundation of the Garmin Connect IQ project.
 
@@ -51,7 +53,7 @@ This phase establishes the foundation of the Garmin Connect IQ project.
     * `resources/strings/`: For UI text (English). ✅
     * `resources/resources.xml`: To register JSON data as loadable resources. ✅
 
-#### Phase 3: Location & Proximity Engine ✅
+### Phase 3: Location & Proximity Engine ✅
 
 1. **GPS Integration:** Load the position fast and only once after app start / reopened. Implement `Position.enableLocationEvents` with a callback that filters for quality. ✅
 2. **Nearest Search:** ✅
@@ -59,13 +61,13 @@ This phase establishes the foundation of the Garmin Connect IQ project.
     * Iterate through the array until `currentLat + 0.01`. ✅
     * Pick the 4 closest results based on `lat`/`lon` distance. ✅
 
-#### Phase 4: Networking & Dynamic Menus ✅
+### Phase 4: Networking & Dynamic Menus ✅
 
 1. **Stop Menu:** Handle the transition from the splash screen to the stop list. ✅
 2. **WebRequest:** Fetch real-time JSON data from the IDS JMK server. ✅
 3. **Post Menu:** Dynamically build a menu from the returned `PostList` array. ✅
 
-#### Phase 5: Custom UI (Departure Board) ✅
+### Phase 5: Custom UI (Departure Board) ✅
 
 1. **Visual Elements:** ✅
     * **Line Badge:** Rounded rectangle with `LineName` using colors from `line_colors.json`. ✅
@@ -74,12 +76,12 @@ This phase establishes the foundation of the Garmin Connect IQ project.
 2. **Interaction:** Support touch-scrolling and a 60-second auto-refresh timer and swipe to go back. ✅
 3. **Tactile Feedback:** Vibrate shortly after "Locating..." is done and stops are ready. ✅
 
-#### Phase 6: Error Handling & Optimization
+### Phase 6: Error Handling & Optimization
 
 1. **Fail-safes:** Handle "No Phone Connection", "Timeout", and "No Service" scenarios gracefully.
 2. **AMOLED Polish:** Use pure black backgrounds and vibrant badge colors for maximum readability.
 
-### Verification Steps
+## Verification Steps
 
 * **Simulated Location:** Verify proximity logic using various Brno coordinates in the CIQ Simulator.
 * **Memory Profiler:** Ensure the large `stops_data.json` is handled efficiently using `WatchUi.loadResource`.
