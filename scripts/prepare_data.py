@@ -8,15 +8,35 @@ def process_stops():
     csv_path = os.path.join(os.path.dirname(__file__), '..', 'stops.csv')
     output_path = os.path.join(os.path.dirname(__file__), '..', 'resources', 'data', 'stops_data.json')
 
+    prefix_counts = {}
+    stop_names_set = set()
+
     with open(csv_path, mode='r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         for row in reader:
+            name = row['stop_name']
+            stop_names_set.add(name)
             stops.append([
                 int(row['stop_id']),
-                row['stop_name'],
+                name,
                 round(float(row['stop_lat']), 5),
                 round(float(row['stop_lon']), 5)
             ])
+            if ',' in name:
+                prefix = name.split(',', 1)[0].strip()
+                prefix_counts[prefix] = prefix_counts.get(prefix, 0) + 1
+
+    prefixes_to_omit = {p for p, count in prefix_counts.items() if count > 1 and p not in stop_names_set}
+    print(f"Omit prefixes: {sorted(prefixes_to_omit)}")
+
+    # Remove town prefixes from stop names, e.g. Blansko
+    for s in stops:
+        name = s[1]
+        if ',' in name:
+            prefix, suffix = name.split(',', 1)
+            prefix = prefix.strip()
+            if prefix in prefixes_to_omit:
+                s[1] = suffix.strip()
 
     # Sort by Latitude (index 2) for faster window searching
     stops.sort(key=lambda x: x[2])
