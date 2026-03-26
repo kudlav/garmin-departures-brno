@@ -127,7 +127,7 @@ class App extends Application.AppBase {
     // Return the initial view of your application here
     function getInitialView() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] {
         _view = new LocatingView();
-        return [ _view as WatchUi.Views, new LocatingDelegate() ];
+        return [ _view as WatchUi.Views, new BehaviorDelegate() ];
     }
 
 }
