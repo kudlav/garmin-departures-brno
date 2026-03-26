@@ -107,20 +107,12 @@ class App extends Application.AppBase {
         // Free memory as early as possible
         stops = null;
 
-        if (DEBUG) {
-            System.println("Found stops: " + bestStops.size());
-            for (var i = 0; i < bestStops.size(); i++) {
-                System.println(" - " + bestStops[i]["name"]);
-            }
-        }
-
         if (Attention has :vibrate) {
             Attention.vibrate([new Attention.VibeProfile(100, 100)]);
         }
 
         if (bestStops.size() == 0) {
-            // TODO Remove Locating... and replace it with this string
-            WatchUi.showToast("No stops nearby", null);
+            _view.setLoading(false);
             return;
         }
 

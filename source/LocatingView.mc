@@ -1,8 +1,11 @@
+import Toybox.Lang;
 import Toybox.Graphics;
 import Toybox.WatchUi;
 import Toybox.Position;
 
 class LocatingView extends WatchUi.View {
+
+    private var _loading = true;
 
     function initialize() {
         View.initialize();
@@ -13,6 +16,11 @@ class LocatingView extends WatchUi.View {
     // loading resources into memory.
     function onShow() as Void {
         Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, getApp().method(:onPosition));
+    }
+
+    public function setLoading(state as Boolean) as Void {
+        _loading = state;
+        WatchUi.requestUpdate();
     }
 
     // Update the view
@@ -29,7 +37,7 @@ class LocatingView extends WatchUi.View {
             dc.getWidth() / 2,
             dc.getHeight() / 2,
             Graphics.FONT_SMALL,
-            "Locating...",
+            _loading ? "Locating..." : "No stops nearby",
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
         );
     }
