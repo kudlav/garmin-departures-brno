@@ -16,14 +16,7 @@ class StopMenuDelegate extends WatchUi.Menu2InputDelegate {
         WatchUi.pushView(new LoadingDeparturesView(item.getLabel()), new BehaviorDelegate(), WatchUi.SLIDE_IMMEDIATE);
 
         // Fetch departures
-        var params = {
-            "stopid" => stopId
-        };
-        var options = {
-            :method => Communications.HTTP_REQUEST_METHOD_GET,
-            :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
-        };
-        Communications.makeWebRequest(API_URL, params, options, method(:onReceive));
+        DataService.fetchDepartures(stopId, method(:onReceive));
     }
 
     function onReceive(responseCode as Number, data as Dictionary?) as Void {
@@ -45,7 +38,7 @@ class StopMenuDelegate extends WatchUi.Menu2InputDelegate {
                 WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
             }
         } else {
-            WatchUi.showToast("Error fetching data: " + responseCode, null);
+            WatchUi.showToast(DataService.getFetchErrorMessage(responseCode), null);
             // Go back from LoadingView
             WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
         }

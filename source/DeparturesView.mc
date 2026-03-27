@@ -106,17 +106,7 @@ class DeparturesView extends WatchUi.View {
     }
 
     function onRefresh() as Void {
-        // TODO MERGE WITH StopMenuDelegate.onSelect
-        if (System.getDeviceSettings().phoneConnected) {
-            var params = {
-                "stopid" => _stopId
-            };
-            var options = {
-                :method => Communications.HTTP_REQUEST_METHOD_GET,
-                :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
-            };
-            Communications.makeWebRequest(API_URL, params, options, method(:onReceiveRefresh));
-        }
+        DataService.fetchDepartures(_stopId, method(:onReceiveRefresh));
     }
 
     function onReceiveRefresh(responseCode as Number, data as Dictionary?) as Void {
@@ -124,6 +114,8 @@ class DeparturesView extends WatchUi.View {
             _apiData = data;
             prepareItems();
             WatchUi.requestUpdate();
+        } else {
+            WatchUi.showToast(DataService.getFetchErrorMessage(responseCode), null);
         }
     }
 
