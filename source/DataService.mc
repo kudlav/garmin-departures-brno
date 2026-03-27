@@ -4,11 +4,6 @@ import Toybox.System;
 
 module DataService {
     function fetchDepartures(stopId as Number, callback as Method(responseCode as Number, data as Dictionary?) as Void) as Void {
-        if (!System.getDeviceSettings().phoneConnected) {
-            callback.invoke(-1, null);
-            return;
-        }
-
         var params = {
             "stopid" => stopId
         };
@@ -20,7 +15,7 @@ module DataService {
     }
 
     function getFetchErrorMessage(responseCode as Number) as String {
-        if (responseCode == -1) {
+        if (responseCode == Communications.BLE_CONNECTION_UNAVAILABLE) {
             return "Phone disconnected";
         } else {
             return "Error " + responseCode;
