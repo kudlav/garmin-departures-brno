@@ -3,6 +3,7 @@ import Toybox.WatchUi;
 
 class DeparturesDelegate extends WatchUi.BehaviorDelegate {
     private var _view as DeparturesView?;
+    private var _lastY as Number? = null;
 
     function initialize(view as DeparturesView) {
         BehaviorDelegate.initialize();
@@ -14,13 +15,20 @@ class DeparturesDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
-    function onSwipe(swipeEvent as WatchUi.SwipeEvent) as Boolean {
+    function onDrag(dragEvent as WatchUi.DragEvent) as Boolean {
         if (_view != null) {
-            if (swipeEvent.getDirection() == WatchUi.SWIPE_UP) {
-                _view.scroll(-120);
+            var y = dragEvent.getCoordinates()[1];
+            if (dragEvent.getType() == WatchUi.DRAG_TYPE_START) {
+                _lastY = y;
                 return true;
-            } else if (swipeEvent.getDirection() == WatchUi.SWIPE_DOWN) {
-                _view.scroll(120);
+            } else {
+                if (_lastY != null) {
+                    _view.scroll(y - _lastY);
+                    _lastY = y;
+                }
+                if (dragEvent.getType() == WatchUi.DRAG_TYPE_STOP) {
+                    _lastY = null;
+                }
                 return true;
             }
         }
