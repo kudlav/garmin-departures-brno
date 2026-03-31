@@ -96,9 +96,7 @@ class DeparturesView extends WatchUi.View {
     }
 
     function onShow() as Void {
-        if (!DEBUG) {
-            _refreshTimer.start(method(:onRefresh), 60000, true);
-        }
+        _refreshTimer.start(method(:onRefresh), 60000, true);
     }
 
     function onHide() as Void {
@@ -125,6 +123,14 @@ class DeparturesView extends WatchUi.View {
 
         var screenWidth = dc.getWidth();
         var screenHeight = dc.getHeight();
+
+        if (_items.size() == 0) {
+            WatchUi.showToast("No departures found", null);
+            // Back to list of stops
+            WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+            WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+            return;
+        }
 
         for (var i = 0; i < _items.size(); i++) {
             var item = _items[i];
