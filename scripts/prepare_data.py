@@ -1,23 +1,32 @@
 import csv
+from io import TextIOWrapper
 import json
 import os
+from urllib.request import urlretrieve
+from zipfile import ZipFile
+from re import compile
 
-def process_stops():
-    stops = []
-    # CSVs are in root, script is in scripts/
-    csv_path = os.path.join(os.path.dirname(__file__), '..', 'stops.csv')
+GTFS_URL = 'https://kordis-jmk.cz/gtfs/gtfs.zip';
+
+def process_stops(gtfs_file: ZipFile) -> None:
     output_path = os.path.join(os.path.dirname(__file__), '..', 'resources', 'data', 'stops_data.json')
+    stop_id_regex = compile(r"U(\d+)N")
+    stops = []
 
     prefix_counts = {}
     stop_names_set = set()
 
-    with open(csv_path, mode='r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
+    with gtfs_file.open('stops.txt', mode='r') as f:
+        text  = TextIOWrapper(f, encoding='utf-8-sig')
+        reader = csv.DictReader(text)
         for row in reader:
+            match = stop_id_regex.search(row['stop_id'])
+            if not match:
+                continue
             name = row['stop_name']
             stop_names_set.add(name)
             stops.append([
-                int(row['stop_id']),
+                int(match[1]),
                 name,
                 round(float(row['stop_lat']), 5),
                 round(float(row['stop_lon']), 5)
@@ -46,20 +55,20 @@ def process_stops():
 
     print(f"Processed {len(stops)} stops. File size: {len(json.dumps(stops))/1024:.2f} KB")
 
-def process_routes():
-    routes = {}
-    csv_path = os.path.join(os.path.dirname(__file__), '..', 'routes.csv')
+def process_routes(gtfs_file: ZipFile) -> None:
     output_path = os.path.join(os.path.dirname(__file__), '..', 'resources', 'data', 'line_colors.json')
+    routes = {}
 
-    with open(csv_path, mode='r', encoding='utf-8-sig') as f:
-        reader = csv.DictReader(f)
+    with gtfs_file.open('routes.txt', mode='r') as f:
+        text  = TextIOWrapper(f, encoding='utf-8-sig')
+        reader = csv.DictReader(text)
         for row in reader:
             name = row['route_short_name']
-            color = row['route_color'] or "008033"
-            text_color = row['route_text_color'] or "FFFFFF"
-            if color == "008033" and text_color == "FFFFFF":
+            color = row['route_color'] or '008033'
+            text_color = row['route_text_color'] or 'FFFFFF'
+            if color == '008033' and text_color == 'FFFFFF':
                 continue
-            if text_color == "FFFFFF":
+            if text_color == 'FFFFFF':
                 routes[name] = [int(color, 16)]
             else:
                 routes[name] = [int(color, 16), int(text_color, 16)]
@@ -69,6 +78,11 @@ def process_routes():
 
     print(f"Processed {len(routes)} routes. File size: {len(json.dumps(routes))/1024:.2f} KB")
 
+def process_gtfs() -> None:
+    urlretrieve(GTFS_URL, 'gtfs.zip')
+    with ZipFile('gtfs.zip') as gtfs_file:
+        process_stops(gtfs_file)
+        process_routes(gtfs_file)
+
 if __name__ == "__main__":
-    process_stops()
-    process_routes()
+    process_gtfs()
