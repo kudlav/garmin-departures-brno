@@ -1,15 +1,22 @@
-import csv
+'''
+Prepare offline data resources from GTFS
+'''
+
+from argparse import ArgumentParser
+from csv import DictReader
 from io import TextIOWrapper
-import json
-import os
+from json import dump, dumps
+from os import path
 from urllib.request import urlretrieve
 from zipfile import ZipFile
 from re import compile
 
-GTFS_URL = 'https://kordis-jmk.cz/gtfs/gtfs.zip';
+GTFS_URL = 'https://kordis-jmk.cz/gtfs/gtfs.zip'
+
 
 def process_stops(gtfs_file: ZipFile) -> None:
-    output_path = os.path.join(os.path.dirname(__file__), '..', 'resources', 'data', 'stops_data.json')
+    output_path = path.join(path.dirname(__file__), '..',
+                            'resources', 'data', 'stop_positions.json')
     stop_id_regex = compile(r"U(\d+)N")
     stops = []
 
@@ -17,8 +24,8 @@ def process_stops(gtfs_file: ZipFile) -> None:
     stop_names_set = set()
 
     with gtfs_file.open('stops.txt', mode='r') as f:
-        text  = TextIOWrapper(f, encoding='utf-8-sig')
-        reader = csv.DictReader(text)
+        text = TextIOWrapper(f, encoding='utf-8-sig')
+        reader = DictReader(text)
         for row in reader:
             match = stop_id_regex.search(row['stop_id'])
             if not match:
@@ -35,8 +42,9 @@ def process_stops(gtfs_file: ZipFile) -> None:
                 prefix = name.split(',', 1)[0].strip()
                 prefix_counts[prefix] = prefix_counts.get(prefix, 0) + 1
 
-    prefixes_to_omit = {p for p, count in prefix_counts.items() if count > 1 and p not in stop_names_set}
-    print(f"Omit prefixes: {sorted(prefixes_to_omit)}")
+    prefixes_to_omit = {p for p, count in prefix_counts.items(
+    ) if count > 10 and p not in stop_names_set}
+    print(f"Prefixes ({len(prefixes_to_omit)}): {sorted(prefixes_to_omit)}")
 
     # Remove town prefixes from stop names, e.g. Blansko
     for s in stops:
@@ -51,17 +59,19 @@ def process_stops(gtfs_file: ZipFile) -> None:
     stops.sort(key=lambda x: x[2])
 
     with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(stops, f, separators=(',', ':'))
+        dump(stops, f, separators=(',', ':'))
 
-    print(f"Processed {len(stops)} stops. File size: {len(json.dumps(stops))/1024:.2f} KB")
+    print(f"{len(stops)} stops, file size: {len(dumps(stops))/1024:.2f} KB")
+
 
 def process_routes(gtfs_file: ZipFile) -> None:
-    output_path = os.path.join(os.path.dirname(__file__), '..', 'resources', 'data', 'line_colors.json')
+    output_path = path.join(path.dirname(__file__), '..',
+                            'resources', 'data', 'line_colors.json')
     routes = {}
 
     with gtfs_file.open('routes.txt', mode='r') as f:
-        text  = TextIOWrapper(f, encoding='utf-8-sig')
-        reader = csv.DictReader(text)
+        text = TextIOWrapper(f, encoding='utf-8-sig')
+        reader = DictReader(text)
         for row in reader:
             name = row['route_short_name']
             color = row['route_color'] or '008033'
@@ -74,15 +84,24 @@ def process_routes(gtfs_file: ZipFile) -> None:
                 routes[name] = [int(color, 16), int(text_color, 16)]
 
     with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(routes, f, ensure_ascii=False, separators=(',', ':'))
+        dump(routes, f, ensure_ascii=False, separators=(',', ':'))
 
-    print(f"Processed {len(routes)} routes. File size: {len(json.dumps(routes))/1024:.2f} KB")
+    print(f"{len(routes)} routes, file size: {len(dumps(routes))/1024:.2f} KB")
 
-def process_gtfs() -> None:
-    urlretrieve(GTFS_URL, 'gtfs.zip')
+
+def process_gtfs(fresh: bool) -> None:
+    if fresh:
+        urlretrieve(GTFS_URL, 'gtfs.zip')
     with ZipFile('gtfs.zip') as gtfs_file:
         process_stops(gtfs_file)
         process_routes(gtfs_file)
 
+
 if __name__ == "__main__":
-    process_gtfs()
+    parser = ArgumentParser(
+        prog='prepare_data.py',
+        description='Prepare offline data resources from GTFS'
+    )
+    parser.add_argument('-f', '--fresh', action='store_true')
+    args = parser.parse_args()
+    process_gtfs(args.fresh)

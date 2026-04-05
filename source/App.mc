@@ -33,7 +33,7 @@ class App extends Application.AppBase {
     }
 
     function findNearestStops(lat as Double, lon as Double) as Void {
-        var stops = WatchUi.loadResource(Rez.JsonData.stops_data) as Array<Array>;
+        var stops = WatchUi.loadResource(Rez.JsonData.stop_positions) as Array<Array>;
 
         var count = stops.size();
         var minLat = lat - 0.01;

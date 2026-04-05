@@ -8,14 +8,14 @@ The plan for the **Departures Brno** app for Garmin Vívoactive 5.
 * **Target Device:** Garmin Vívoactive 5 (AMOLED, 390x390px, Touch screen).
 * **Language:** English.
 * **Core Function:** Find nearest 4 stops, select platform (Post), and show live departures.
-* **Data Sources:** Local `stops_data.json`, Local `line_colors.json`, Remote IDS JMK API.
+* **Data Sources:** Local `stop_positions.json`, Local `line_colors.json`, Remote IDS JMK API.
 
 ## Optimized Data Strategy
 
 The `stops.csv` contains ~3,200 entries, which is too large to parse at runtime on a watch with limited memory.
 To minimize the memory footprint on the watch (critical for 128KB-1MB heap limits), use the most compact representation possible.
 
-* **`stops_data.json`**: An array of arrays, sorted by latitude.
+* **`stop_positions.json`**: An array of arrays, sorted by latitude.
   * **Format:** `[[id, "Name", lat, lon], ...]`
   * **Example:** `[1146, "Hlavní nádraží", 49.1916, 16.6128]`
 * **`line_colors.json`**: A lookup table for route branding.
@@ -26,7 +26,7 @@ To minimize the memory footprint on the watch (critical for 128KB-1MB heap limit
 
 1. **Splash Screen:** Display "Locating..." and wait for high-accuracy GPS coordinates.
 2. **Stop Selection:**
-    * Perform a window-based search in the sorted `stops_data.json` around the current latitude.
+    * Perform a window-based search in the sorted `stop_positions.json` around the current latitude.
     * Calculate Euclidean distance for the filtered subset.
     * Show a `WatchUi.Menu2` with the **names** of the 4 nearest stops.
 3. **API Fetch:** Call `https://mapa.idsjmk.cz/api/departures?stopid=${selected_id}`.
@@ -84,5 +84,5 @@ This phase establishes the foundation of the Garmin Connect IQ project.
 ## Verification Steps
 
 * **Simulated Location:** Verify proximity logic using various Brno coordinates in the CIQ Simulator.
-* **Memory Profiler:** Ensure the large `stops_data.json` is handled efficiently using `WatchUi.loadResource`.
+* **Memory Profiler:** Ensure the large `stop_positions.json` is handled efficiently using `WatchUi.loadResource`.
 * **Visual Check:** Ensure line colors match the branding in `routes.csv`.
