@@ -1,6 +1,6 @@
 import Toybox.Lang;
 
 // Global debug switch
-const DEBUG = true;
+const DEBUG = false;
 const API_KEY = "";
-const API_URL = "https://mapa.idsjmk.cz/api/departures";
+const API_URL = "https://kudlac.tode.cz/departures/"; // "https://mapa.idsjmk.cz/api/departures"

@@ -17,7 +17,7 @@ GTFS_URL = 'https://kordis-jmk.cz/gtfs/gtfs.zip'
 def process_stops(gtfs_file: ZipFile) -> None:
     output_path = path.join(path.dirname(__file__), '..',
                             'resources', 'data', 'stop_positions.json')
-    stop_id_regex = compile(r"U(\d+)N")
+    stop_id_regex = compile(r"U(\d+)N(\d+)")
     stops = []
 
     prefix_counts = {}
@@ -27,16 +27,17 @@ def process_stops(gtfs_file: ZipFile) -> None:
         text = TextIOWrapper(f, encoding='utf-8-sig')
         reader = DictReader(text)
         for row in reader:
-            match = stop_id_regex.search(row['stop_id'])
+            match = stop_id_regex.match(row['stop_id'])
             if not match:
                 continue
             name = row['stop_name']
             stop_names_set.add(name)
             stops.append([
                 int(match[1]),
+                int(match[2]),
                 name,
-                round(float(row['stop_lat']), 5),
-                round(float(row['stop_lon']), 5)
+                round(float(row['stop_lat']), 4),
+                round(float(row['stop_lon']), 4)
             ])
             if ',' in name:
                 prefix = name.split(',', 1)[0].strip()
@@ -48,15 +49,15 @@ def process_stops(gtfs_file: ZipFile) -> None:
 
     # Remove town prefixes from stop names, e.g. Blansko
     for s in stops:
-        name = s[1]
+        name = s[2]
         if ',' in name:
             prefix, suffix = name.split(',', 1)
             prefix = prefix.strip()
             if prefix in prefixes_to_omit:
-                s[1] = suffix.strip()
+                s[2] = suffix.strip()
 
-    # Sort by Latitude (index 2) for faster window searching
-    stops.sort(key=lambda x: x[2])
+    # Sort by Latitude (index 3) for faster window searching
+    stops.sort(key=lambda x: x[3])
 
     with open(output_path, 'w', encoding='utf-8') as f:
         dump(stops, f, separators=(',', ':'))

@@ -7,21 +7,19 @@ import Toybox.System;
 
 class DeparturesView extends WatchUi.View {
     private var _apiData as Dictionary;
-    private var _selectedPostId as Number;
     private var _lineColors as Dictionary?;
     private var _scrollY as Number = 0;
     private var _totalHeight as Number = 0;
     private var _items as Array<Dictionary> = [];
-    private var _refreshTimer as Timer.Timer;
-    private var _stopId as Number;
+    // private var _refreshTimer as Timer.Timer;
+    // private var _stopId as String;
 
-    function initialize(apiData as Dictionary, selectedPost as Dictionary) {
+    function initialize(apiData as Dictionary) {
         View.initialize();
         _apiData = apiData;
-        _selectedPostId = selectedPost.get("PostID") as Number;
-        _stopId = apiData.get("StopID") as Number;
         
-        _refreshTimer = new Timer.Timer();
+        // _stopId = apiData.get("StopID") as String;
+        // _refreshTimer = new Timer.Timer();
         
         _lineColors = WatchUi.loadResource(Rez.JsonData.line_colors) as Dictionary;
         
@@ -36,15 +34,10 @@ class DeparturesView extends WatchUi.View {
 
         for (var i = 0; i < postList.size(); i++) {
             var post = postList[i] as Dictionary;
-            var postId = post.get("PostID") as Number;
             var departures = post.get("Departures") as Array;
             
             if (departures.size() == 0) {
                 continue;
-            }
-
-            if (postId == _selectedPostId) {
-                scrollToY = currentY;
             }
 
             // Platform Header
@@ -96,15 +89,15 @@ class DeparturesView extends WatchUi.View {
     }
 
     function onShow() as Void {
-        _refreshTimer.start(method(:onRefresh), 60000, true);
+        // _refreshTimer.start(method(:onRefresh), 60000, true);
     }
 
     function onHide() as Void {
-        _refreshTimer.stop();
+        // _refreshTimer.stop();
     }
 
     function onRefresh() as Void {
-        DataService.fetchDepartures(_stopId, method(:onReceiveRefresh));
+        // DataService.fetchDepartures(_stopId, method(:onReceiveRefresh));
     }
 
     function onReceiveRefresh(responseCode as Number, data as Dictionary?) as Void {
@@ -171,6 +164,10 @@ class DeparturesView extends WatchUi.View {
                 // Draw destination
                 dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
                 dc.drawText(75, y + 5 + 15, Graphics.FONT_TINY, dest, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+
+                // Fill rightmost 10px padding with black to hide overflowing destination text
+                dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
+                dc.fillRectangle(screenWidth - 10, y, 10, 45);
 
                 // Draw time
                 dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_BLACK);

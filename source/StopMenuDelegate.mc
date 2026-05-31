@@ -10,7 +10,7 @@ class StopMenuDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onSelect(item as WatchUi.MenuItem) as Void {
-        var stopId = item.getId() as Number;
+        var stopId = item.getId() as String;
 
         // Push loading view so we can still go back
         WatchUi.pushView(new LoadingDeparturesView(item.getLabel()), new BehaviorDelegate(), WatchUi.SLIDE_IMMEDIATE);
@@ -25,13 +25,8 @@ class StopMenuDelegate extends WatchUi.Menu2InputDelegate {
         if (responseCode == 200 && data != null) {
             var postList = data.get("PostList") as Array?;
             if (postList != null && postList.size() > 0) {
-                var menu = new WatchUi.Menu2({:title=>"Select Platform"});
-                for (var i = 0; i < postList.size(); i++) {
-                    var post = postList[i] as Dictionary;
-                    menu.addItem(new WatchUi.MenuItem(post.get("Name") as String, null, post, null));
-                }
-                // Switch the LoadingView with the PostMenu
-                WatchUi.switchToView(menu, new PostMenuDelegate(data), WatchUi.SLIDE_UP);
+                var view = new DeparturesView(data);
+                WatchUi.switchToView(view, new DeparturesDelegate(view), WatchUi.SLIDE_UP);
             } else {
                 WatchUi.showToast("No departures found", null);
                 // Go back from LoadingView

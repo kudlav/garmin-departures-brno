@@ -21,7 +21,7 @@ class App extends Application.AppBase {
 
     function onPosition(info as Position.Info) as Void {
         if (DEBUG) { System.println("Position accuracy: " + info.accuracy); }
-        
+
         var minAccuracy = DEBUG ? Position.QUALITY_LAST_KNOWN : Position.QUALITY_USABLE;
         
         if (info.accuracy >= minAccuracy && info.position != null) {
@@ -46,7 +46,7 @@ class App extends Application.AppBase {
 
         while (low <= high) {
             var mid = (low + high) / 2;
-            var stopLat = stops[mid][2].toDouble();
+            var stopLat = stops[mid][3].toFloat();
             if (stopLat < minLat) {
                 low = mid + 1;
                 startIndex = low;
@@ -64,12 +64,12 @@ class App extends Application.AppBase {
 
         for (var i = startIndex; i < count; i++) {
             var stop = stops[i];
-            var stopLat = stop[2].toDouble();
+            var stopLat = stop[3].toFloat();
             if (stopLat > maxLat) {
                 break;
             }
 
-            var stopLon = stop[3].toDouble();
+            var stopLon = stop[4].toFloat();
             var dLat = lat - stopLat;
             var dLon = (lon - stopLon) * cosLat;
             var distSq = (dLat * dLat + dLon * dLon).toFloat();
@@ -77,8 +77,8 @@ class App extends Application.AppBase {
             // Insert into top 4 if closer
             if (distSq < bestDistSq[3]) {
                 var newStop = {
-                    "id" => stop[0],
-                    "name" => stop[1]
+                    "id" => "U" + stop[0] + "N" + stop[1],
+                    "name" => stop[2]
                 };
                 
                 // Find insertion point

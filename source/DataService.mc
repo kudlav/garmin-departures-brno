@@ -3,9 +3,11 @@ import Toybox.Lang;
 import Toybox.System;
 
 module DataService {
-    function fetchDepartures(stopId as Number, callback as Method(responseCode as Number, data as Dictionary?) as Void) as Void {
+    function fetchDepartures(stopId as String, callback as Method(responseCode as Number, data as Dictionary?) as Void) as Void {
+        if (DEBUG) { System.println("stopId: " + stopId); }
         var params = {
-            "stopid" => stopId
+            "stopid" => stopId,
+            "key" => API_KEY
         };
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
