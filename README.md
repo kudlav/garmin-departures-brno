@@ -17,6 +17,11 @@ The app finds nearest stops using watches integrated GPS and shows live departur
 
 ## Supported devices
 
+- Venu® 2
+- Venu® 2 Plus
+- Venu® 2S
+- Venu® 3
+- Venu® 3S
 - Venu® 4 41mm
 - Venu® 4 45mm / D2™ Air X15
 - vívoactive® 5
