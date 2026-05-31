@@ -7,10 +7,13 @@ Find live departures around you, within IDS JMK. Location never leaves your Garm
 The app finds nearest stops using watches integrated GPS and shows live departures:
 
 - Live Data: Fetches scheduled departure data from the <https://www.transit.land/>.
+- Uses local database of stops (from <https://kordis-jmk.cz/gtfs/gtfs.zip>) preserving your privacy and internet bandwidth.
 - Optimized UX for Garmin Watches with touch screens
-- Uses local database of stops preserving your privacy and internet bandwidth.
 - 🚧 Currently only scheduled departures are shown. IDS JMK does not provide reliable and valid GTFS Real-time. Discussions are underway about the possibility of using the IDS JMK API.
 - 🚧 Live reload is currently disabled.
+
+![Screenshot Departures View](departures-1.png)
+![Screenshot Nearest stops](departures-2.png)
 
 ## Supported devices
 
