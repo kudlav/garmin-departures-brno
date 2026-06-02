@@ -29,7 +29,7 @@ class DeparturesView extends WatchUi.View {
     function prepareItems() as Void {
         _items = [];
         var postList = _apiData.get("PostList") as Array;
-        var currentY = 75; // Padding at the top for readability
+        var currentY = getScreenPadding(); // Padding at the top for readability
         var scrollToY = -1;
 
         for (var i = 0; i < postList.size(); i++) {
@@ -60,11 +60,21 @@ class DeparturesView extends WatchUi.View {
                 currentY += 45;
             }
         }
-        _totalHeight = currentY + 75; // Padding at the bottom for readability
+        _totalHeight = currentY + getScreenPadding(); // Padding at the bottom for readability
 
         if (scrollToY != -1) {
             _scrollY = -scrollToY + 40; // Center or top with some margin
             checkScrollBounds();
+        }
+    }
+
+    function getScreenPadding() as Integer {
+        System.println("System.getDeviceSettings().screenShape: " + System.getDeviceSettings().screenShape);
+        switch (System.getDeviceSettings().screenShape) {
+            case System.SCREEN_SHAPE_RECTANGLE:
+                return 10;
+            default:
+                return 75;
         }
     }
 
