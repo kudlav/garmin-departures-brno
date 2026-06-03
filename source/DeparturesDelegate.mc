@@ -1,5 +1,6 @@
 import Toybox.Lang;
 import Toybox.WatchUi;
+import Toybox.System;
 
 class DeparturesDelegate extends WatchUi.BehaviorDelegate {
     private var _view as DeparturesView?;
@@ -13,6 +14,20 @@ class DeparturesDelegate extends WatchUi.BehaviorDelegate {
     function onBack() as Boolean {
         WatchUi.popView(WatchUi.SLIDE_RIGHT);
         return true;
+    }
+
+    function onKey(keyEvent as KeyEvent) as Boolean {
+        if (_view != null) {
+            switch (keyEvent.getKey()) {
+                case WatchUi.KEY_DOWN:
+                    _view.scroll(-getShift());
+                    return true;
+                case WatchUi.KEY_UP:
+                    _view.scroll(getShift());
+                    return true;
+            }
+        }
+        return false;
     }
 
     function onDrag(dragEvent as WatchUi.DragEvent) as Boolean {
@@ -33,5 +48,9 @@ class DeparturesDelegate extends WatchUi.BehaviorDelegate {
             }
         }
         return false;
+    }
+
+    function getShift() as Integer {
+        return System.getDeviceSettings().screenHeight / 3;
     }
 }

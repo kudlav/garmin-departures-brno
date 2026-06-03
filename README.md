@@ -17,13 +17,20 @@ The app finds nearest stops using watches integrated GPS and shows live departur
 
 ## Supported devices
 
+- D2™ Air X15
+- Forerunner® 265
+- Forerunner® 265S
+- Forerunner® 70
+- Forerunner® 570
+- Forerunner® 955
+- Forerunner® 965
+- Forerunner® 970
 - Venu® 2
 - Venu® 2 Plus
 - Venu® 2S
 - Venu® 3
 - Venu® 3S
-- Venu® 4 41mm
-- Venu® 4 45mm / D2™ Air X15
+- Venu® 4
 - Venu® Sq 2
 - Venu® Sq 2 Music
 - Venu® X1
