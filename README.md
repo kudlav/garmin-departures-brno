@@ -18,6 +18,7 @@ The app finds nearest stops using watches integrated GPS and shows live departur
 ## Supported devices
 
 - D2™ Air X15
+- Forerunner® 255s Music
 - Forerunner® 265
 - Forerunner® 265S
 - Forerunner® 70
