@@ -38,7 +38,7 @@ foreach($stops->stops[0]->parent->children as $post) {
     if (sizeOf($departures)) {
         $postList[] = [
             "PostID" => $post->stop_id,
-            "Name" => "",
+            "Name" => $post->platform_code ? "Nástupiště " . $post->platform_code : "",
             "Departures" => $departures
         ];
     }
