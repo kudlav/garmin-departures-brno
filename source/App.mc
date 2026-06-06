@@ -77,7 +77,7 @@ class App extends Application.AppBase {
             // Insert into top 4 if closer
             if (distSq < bestDistSq[3]) {
                 var newStop = {
-                    "id" => "U" + stop[0] + "N" + stop[1],
+                    "id" => "U" + stop[0] + "Z" + stop[1],
                     "name" => stop[2]
                 };
                 

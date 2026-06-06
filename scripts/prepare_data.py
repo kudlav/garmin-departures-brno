@@ -17,8 +17,9 @@ GTFS_URL = 'https://kordis-jmk.cz/gtfs/gtfs.zip'
 def process_stops(gtfs_file: ZipFile) -> None:
     output_path = path.join(path.dirname(__file__), '..',
                             'resources', 'data', 'stop_positions.json')
-    stop_id_regex = compile(r"U(\d+)N(\d+)")
+    stop_id_regex = compile(r"U(\d+)(N|Z)(\d+)")
     stops = []
+    platforms = {}
 
     prefix_counts = {}
     stop_names_set = set()
@@ -28,33 +29,42 @@ def process_stops(gtfs_file: ZipFile) -> None:
         reader = DictReader(text)
         for row in reader:
             match = stop_id_regex.match(row['stop_id'])
-            if not match:
-                continue
-            name = row['stop_name']
-            stop_names_set.add(name)
-            stops.append([
-                int(match[1]),
-                int(match[2]),
-                name,
-                round(float(row['stop_lat']), 4),
-                round(float(row['stop_lon']), 4)
-            ])
-            if ',' in name:
-                prefix = name.split(',', 1)[0].strip()
-                prefix_counts[prefix] = prefix_counts.get(prefix, 0) + 1
+            # Stop area
+            if match and match[2] == "N":
+                name = row['stop_name']
+                stop_names_set.add(name)
+                stops.append([
+                    int(match[1]),
+                    None,
+                    name,
+                    round(float(row['stop_lat']), 4),
+                    round(float(row['stop_lon']), 4)
+                ])
+                if ',' in name:
+                    prefix = name.split(',', 1)[0].strip()
+                    prefix_counts[prefix] = prefix_counts.get(prefix, 0) + 1
+            # Stop position
+            elif match and match[2] == "Z":
+                stop_id = int(match[1])
+                pos_id = int(match[3])
+                if stop_id not in platforms or pos_id < platforms[stop_id]:
+                    platforms[stop_id] = pos_id
 
     prefixes_to_omit = {p for p, count in prefix_counts.items(
     ) if count > 10 and p not in stop_names_set}
     print(f"Prefixes ({len(prefixes_to_omit)}): {sorted(prefixes_to_omit)}")
 
-    # Remove town prefixes from stop names, e.g. Blansko
-    for s in stops:
-        name = s[2]
+    # Add platform ID, remove town prefixes from stop names, e.g. Blansko
+    for stop in stops:
+        if stop[0] not in platforms:
+            raise KeyError(f"{stop[0]} not in platforms");
+        stop[1] = platforms[stop[0]]
+        name = stop[2]
         if ',' in name:
             prefix, suffix = name.split(',', 1)
             prefix = prefix.strip()
             if prefix in prefixes_to_omit:
-                s[2] = suffix.strip()
+                stop[2] = suffix.strip()
 
     # Sort by Latitude (index 3) for faster window searching
     stops.sort(key=lambda x: x[3])

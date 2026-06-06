@@ -17,7 +17,7 @@ $stops = json_decode($resp);
 
 $postList = [];
 $timeNow = new DateTime();
-foreach($stops->stops[0]->children as $post) {
+foreach($stops->stops[0]->parent->children as $post) {
     $departures = [];
     foreach($post->departures as $dep) {
         $timeDep = new DateTime($dep->departure->scheduled_local);
@@ -45,7 +45,7 @@ foreach($stops->stops[0]->children as $post) {
 }
 
 $json = json_encode([
-    "StopID" => $stopid,
+    "StopID" => $stops->stops[0]->parent->stop_id,
     "PostList" => $postList
 ], JSON_UNESCAPED_UNICODE);
 
